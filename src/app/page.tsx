@@ -41,6 +41,9 @@ export default function Home() {
         subtitle="Há mais de três décadas, cultivamos a excelência em cada detalhe. Nossa história é construída sobre o compromisso com a qualidade e o respeito aos processos naturais, resultando em produtos que são referência no mercado."
         backgroundImage="/images/cchc.jpg"
         darkOverlay={true}
+        buttons={{
+          primary: "Sobre",
+        }}
       />
 
       {/* Seção Produtos Naturais */}

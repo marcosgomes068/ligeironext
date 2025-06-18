@@ -12,6 +12,39 @@ export const slideUp = {
   exit: { y: -30, opacity: 0 },
 };
 
+// Animação do letreiro
+export const marqueeAnimation = {
+  initial: { 
+    opacity: 0,
+    x: -30,
+    filter: "blur(8px)",
+  },
+  animate: { 
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+  },
+  exit: { 
+    opacity: 0,
+    x: 30,
+    filter: "blur(8px)",
+  },
+};
+
+// Animação do subtítulo do letreiro
+export const marqueeSubtitleAnimation = {
+  initial: { 
+    opacity: 0,
+    y: 20,
+    filter: "blur(4px)",
+  },
+  animate: { 
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+  },
+};
+
 // Animações de escala
 export const scaleUp = {
   initial: { scale: 0.95, opacity: 0 },
@@ -31,14 +64,11 @@ export const fadeInScroll = {
   animate: { opacity: 1, y: 0 },
 };
 
-// Transições padrão
+// Transições
 export const transitions = {
-  default: { duration: 0.3 },
-  slow: { duration: 0.6 },
-  fast: { duration: 0.15 },
-  bounce: {
-    type: 'spring',
-    stiffness: 400,
-    damping: 10,
-  },
+  default: { duration: 0.3, ease: [0.43, 0.13, 0.23, 0.96] },
+  slow: { duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] },
+  fast: { duration: 0.2, ease: [0.43, 0.13, 0.23, 0.96] },
+  marquee: { duration: 0.8, ease: [0.25, 0.1, 0, 1] },
+  stagger: { staggerChildren: 0.1 },
 };

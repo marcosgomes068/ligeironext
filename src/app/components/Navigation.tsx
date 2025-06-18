@@ -22,12 +22,12 @@ export default function Navigation() {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={transitions.default}
-      className="fixed left-0 right-0 top-0 z-40 flex items-center justify-between px-8 py-6"
+      className="fixed left-0 right-0 top-0 z-40 flex items-center justify-between px-4 py-4 md:px-8 md:py-6"
     >
       {/* Logo */}
       <div className="flex-none">
         <Link href="/" className="block">
-          <div className="relative h-8 w-8 md:h-9 md:w-9">
+          <div className="relative h-7 w-7 md:h-8 md:w-8">
             <Image
               src="/images/logo.png"
               alt="Ligeirinho Agroindústria"
@@ -40,7 +40,7 @@ export default function Navigation() {
       </div>
 
       {/* Menu Central - Visível apenas em desktop */}
-      <ul className="hidden items-center justify-center space-x-8 md:flex">
+      <ul className="hidden items-center justify-center space-x-6 md:flex md:space-x-8">
         {menuItems.map((item) => (
           <motion.li
             key={item.name}
@@ -52,7 +52,7 @@ export default function Navigation() {
           >
             <Link
               href={item.href}
-              className={`text-xs font-light tracking-[0.3em] transition-opacity hover:opacity-100 opacity-75 ${textColorClass}`}
+              className={`text-xs font-light tracking-widest transition-opacity hover:opacity-100 opacity-75 ${textColorClass}`}
             >
               {item.name}
             </Link>
@@ -70,7 +70,7 @@ export default function Navigation() {
         <motion.button
           whileHover={{ y: -2 }}
           transition={transitions.fast}
-          className={`hidden text-xs font-light tracking-[0.3em] transition-opacity hover:opacity-100 opacity-75 ${textColorClass} md:block`}
+          className={`hidden text-xs font-light tracking-widest transition-opacity hover:opacity-100 opacity-75 ${textColorClass} md:block`}
         >
           MENU
         </motion.button>
