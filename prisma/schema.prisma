@@ -1,0 +1,18 @@
+// Prisma schema para produtos
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Produto {
+  id        Int     @id @default(autoincrement())
+  nome      String
+  preco     Float
+  imagem    String
+  createdAt DateTime @default(now())
+}
