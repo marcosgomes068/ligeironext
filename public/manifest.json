@@ -1,0 +1,16 @@
+{
+  "name": "Ligeirinho Agroindústria",
+  "short_name": "Ligeirinho",
+  "description": "Do cultivo à sua mesa, nossa missão é oferecer os melhores produtos naturais.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00a550",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

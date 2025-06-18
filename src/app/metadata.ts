@@ -1,6 +1,10 @@
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Ligeirinho Agroindústria',
-  description: 'Qualidade e tradição em produtos agroindustriais',
+  description: 'Do cultivo à sua mesa, nossa missão é oferecer os melhores produtos naturais.',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+  },
 };
