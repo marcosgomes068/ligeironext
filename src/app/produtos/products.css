@@ -1,19 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .product-image {
   @apply absolute inset-0 bg-cover bg-center transition-transform duration-700;
 }
 
 .product-card {
-  @apply group relative aspect-square cursor-pointer overflow-hidden bg-[#111];
+  @apply relative aspect-square cursor-pointer overflow-hidden bg-white border-2 border-green-400 shadow-lg rounded-xl transition-transform duration-300 hover:scale-105 !important;
+  background-color: #fff !important;
 }
 
 .product-info {
-  @apply absolute inset-x-0 bottom-0 p-6 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100;
+  @apply absolute inset-x-0 bottom-0 p-6 bg-white/90 rounded-b-xl shadow-md;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
 
 .product-overlay {
-  @apply absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100;
+  @apply absolute inset-0 bg-green-200/30 opacity-0 transition-opacity duration-500 group-hover:opacity-80 rounded-xl;
 }
 
 .product-gradient {
-  @apply absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100;
+  @apply absolute inset-0 bg-gradient-to-t from-green-600/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-80 rounded-xl;
+}
+
+/* Fundo animado para o catálogo de produtos */
+.catalog-bg {
+  background-image: url('/funp.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent !important;
+}
+
+body.catalog-bg-page {
+  background: none !important;
+  animation: none !important;
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+.category-label-text {
+  background: linear-gradient(90deg, #22c55e 30%, #fff 50%, #a7f3d0 70%);
+  background-size: 200% auto;
+  color: #22c55e;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 2.5s linear infinite;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }

@@ -4,98 +4,158 @@ import { motion } from 'framer-motion';
 import Navigation from '../components/Navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import './products.css';
+import { useEffect, useState } from 'react';
 
 interface Product {
-  id: string;
   name: string;
   price: string;
   image: string;
+  category: string;
+  description: string;
+  featured?: boolean;
+  isNew?: boolean;
 }
 
 const products: Product[] = [
+  // Chocolates
   {
-    id: 'chocolate-premium',
-    name: 'CHOCOLATE ARTESANAL PREMIUM',
-    price: 'A partir de R$ 24,90',
-    image: '/images/chocolate.jpg'
+    name: 'CHOCOLATE AO LEITE ARTESANAL',
+    price: 'R$ 24,90',
+    image: '/images/chocolate.jpg',
+    category: 'Chocolates',
+    description: 'Delicioso chocolate artesanal ao leite, feito com cacau especial',
+    featured: true
   },
   {
-    id: 'produtos-naturais',
-    name: 'SELEÇÃO DE PRODUTOS NATURAIS',
-    price: 'A partir de R$ 19,90',
-    image: '/images/imgcn.jpg'
+    name: 'CHOCOLATE 70% CACAU',
+    price: 'R$ 29,90',
+    image: '/images/chocolate.jpg',
+    category: 'Chocolates',
+    description: 'Chocolate amargo premium com 70% de cacau',
+    isNew: true
+  },
+  // Cachaças
+  {
+    name: 'CACHAÇA OURO PREMIUM',
+    price: 'R$ 89,90',
+    image: '/images/cchc.jpg',
+    category: 'Cachaças',
+    description: 'Cachaça envelhecida em barril de carvalho',
+    featured: true
   },
   {
-    id: 'tradicional-linha',
-    name: 'LINHA TRADICIONAL',
-    price: 'A partir de R$ 29,90',
-    image: '/images/cchc.jpg'
+    name: 'CACHAÇA PRATA ARTESANAL',
+    price: 'R$ 69,90',
+    image: '/images/cchc.jpg',
+    category: 'Cachaças',
+    description: 'Cachaça prata artesanal de alambique'
+  },
+  // Caldo de Cana
+  {
+    name: 'CALDO DE CANA NATURAL',
+    price: 'R$ 8,00',
+    image: '/images/imgcn.jpg',
+    category: 'Caldo de Cana',
+    description: 'Caldo de cana natural, extraído na hora',
+    isNew: true
   },
   {
-    id: 'chocolate-premium-2',
-    name: 'CHOCOLATE PREMIUM DARK',
-    price: 'A partir de R$ 34,90',
-    image: '/images/chocolate.jpg'
+    name: 'CALDO DE CANA COM GENGIBRE',
+    price: 'R$ 10,00',
+    image: '/images/imgcn.jpg',
+    category: 'Caldo de Cana',
+    description: 'Caldo de cana com gengibre, refrescante e saudável'
+  },
+  // Milho Verde
+  {
+    name: 'MILHO VERDE NATURAL',
+    price: 'R$ 5,00',
+    image: '/images/fazenda.jpg',
+    category: 'Milho Verde',
+    description: 'Milho verde fresco, colhido no dia'
   },
   {
-    id: 'produtos-naturais-2',
-    name: 'PRODUTOS ESPECIAIS',
-    price: 'A partir de R$ 39,90',
-    image: '/images/imgcn.jpg'
-  },
-  {
-    id: 'tradicional-linha-2',
-    name: 'LINHA GOURMET',
-    price: 'A partir de R$ 44,90',
-    image: '/images/cchc.jpg'
+    name: 'PAMONHA ARTESANAL',
+    price: 'R$ 12,00',
+    image: '/images/fazenda.jpg',
+    category: 'Milho Verde',
+    description: 'Pamonha artesanal feita com milho fresco',
+    featured: true
   }
 ];
 
 export default function Products() {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  useEffect(() => {
+    document.body.classList.add('catalog-bg-page');
+    return () => {
+      document.body.classList.remove('catalog-bg-page');
+    };
+  }, []);
+
+  const categories = ['Chocolates', 'Cachaças', 'Caldo de Cana', 'Milho Verde'];
+
+  const filteredProducts = products.filter(product => {
+    const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         product.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === '' || product.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
   return (
-    <main className="min-h-screen w-full">
+    <main className="min-h-screen w-full catalog-bg">
       <Navigation />
       
-      {/* Grid de Produtos */}
-      <div className="mx-auto max-w-[2400px] px-6 pt-32 pb-24">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-1">
-          {products.map((product, index) => (
-            <Link href={`/produtos/${product.id}`} key={product.id}>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative aspect-square cursor-pointer overflow-hidden backdrop-blur-sm bg-white/30"
-              >
-                {/* Imagem do Produto */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
+      {/* Cabeçalho */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-32 pb-12 bg-transparent">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-green-900">
+          Catálogo de Produtos
+        </h1>
+        <p className="text-lg text-center text-green-700 mb-12">
+          Confira todos os produtos disponíveis em nosso catálogo
+        </p>
 
-                {/* Overlay Gradiente */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-                {/* Informações do Produto */}
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <h3 className="mb-2 text-sm font-light tracking-[0.2em] text-white">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm font-light tracking-wider text-white/90">
-                    {product.price}
-                  </p>
-                </div>
-
-                {/* Overlay de Hover */}
-                <div className="absolute inset-0 bg-black/10 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              </motion.div>
-            </Link>
-          ))}
+        {/* Categorias em destaque */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 gap-8 justify-center mb-10">
+          {/* Chocolates */}
+          <Link href={`/produtos/categoria/${encodeURIComponent('Chocolates')}`} className="group relative w-full aspect-[5/4] h-56 sm:h-80 md:h-[28rem] overflow-hidden shadow-lg border-2 border-green-200 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400">
+            <Image src="/images/chocolate.jpg" alt="Chocolates" fill style={{objectFit: 'cover'}} className="object-cover group-hover:brightness-90 transition duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 via-transparent to-transparent" />
+            <span className="category-label absolute bottom-6 left-0 right-0 text-center text-2xl font-bold text-white drop-shadow-lg animate-fade-in-up">
+              <span className="category-label-text">Chocolates</span>
+            </span>
+          </Link>
+          {/* Cachaças */}
+          <Link href={`/produtos/categoria/${encodeURIComponent('Cachaças')}`} className="group relative w-full aspect-[5/4] h-56 sm:h-80 md:h-[28rem] overflow-hidden shadow-lg border-2 border-green-200 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400">
+            <Image src="/images/cchc.jpg" alt="Cachaças" fill style={{objectFit: 'cover'}} className="object-cover group-hover:brightness-90 transition duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 via-transparent to-transparent" />
+            <span className="category-label absolute bottom-6 left-0 right-0 text-center text-2xl font-bold text-white drop-shadow-lg animate-fade-in-up">
+              <span className="category-label-text">Cachaças</span>
+            </span>
+          </Link>
+          {/* Caldo de Cana */}
+          <Link href={`/produtos/categoria/${encodeURIComponent('Caldo de Cana')}`} className="group relative w-full aspect-[5/4] h-56 sm:h-80 md:h-[28rem] overflow-hidden shadow-lg border-2 border-green-200 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400">
+            <Image src="/images/imgcn.jpg" alt="Caldo de Cana" fill style={{objectFit: 'cover'}} className="object-cover group-hover:brightness-90 transition duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 via-transparent to-transparent" />
+            <span className="category-label absolute bottom-6 left-0 right-0 text-center text-2xl font-bold text-white drop-shadow-lg animate-fade-in-up">
+              <span className="category-label-text">Caldo de Cana</span>
+            </span>
+          </Link>
+          {/* Milho Verde */}
+          <Link href={`/produtos/categoria/${encodeURIComponent('Milho Verde')}`} className="group relative w-full aspect-[5/4] h-56 sm:h-80 md:h-[28rem] overflow-hidden shadow-lg border-2 border-green-200 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-400">
+            <Image src="/images/fazenda.jpg" alt="Milho Verde" fill style={{objectFit: 'cover'}} className="object-cover group-hover:brightness-90 transition duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 via-transparent to-transparent" />
+            <span className="category-label absolute bottom-6 left-0 right-0 text-center text-2xl font-bold text-white drop-shadow-lg animate-fade-in-up">
+              <span className="category-label-text">Milho Verde</span>
+            </span>
+          </Link>
         </div>
+
+        {/* Filtros e Busca removidos */}
+
       </div>
     </main>
   );
